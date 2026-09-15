@@ -19,3 +19,25 @@ c2 = Customer("이알바")
 
 print(c1.summary())
 print(c2.summary())
+
+class Order:
+    def __init__(self, order_id, customer, items):
+        self.order_id = order_id
+        self.customer = customer 
+        self.items = items 
+        
+    def add_item(self, name, price):
+        self.items.append((name, price))
+        
+    def total_price(self):
+        subtotal = sum(price for _, price in self.items) 
+        discount = self.customer.get_discount_rate()
+        return int(subtotal * (1 - discount))
+    
+    def pay(self):
+        amount = self.total_price()
+        self.customer.add_points(amount)
+        return amount
+c1 = Customer("김서강", "vip")
+order = Order("A-1001", c1, [("라떼", 5500), ("크루아상", 4200)])
+print(f"{order.customer.name}님의 결제 금액: {order.total_price():,}원")
