@@ -41,3 +41,17 @@ class Order:
 c1 = Customer("김서강", "vip")
 order = Order("A-1001", c1, [("라떼", 5500), ("크루아상", 4200)])
 print(f"{order.customer.name}님의 결제 금액: {order.total_price():,}원")
+
+vip_customer = Customer("백설기", "vip")
+basic_customer = Customer("김절편")
+
+order1 = Order("A-1", vip_customer, [("쑥절미", 8000), ("꿀호떡", 5000)])
+order2 = Order("A-2", basic_customer, [("가래떡", 7000)])
+order3 = Order("B-1", vip_customer, [("송편", 10000)])
+
+for order in (order1, order2, order3):
+    paid_amount = order.pay()
+    print(f"[{order.order_id}] {order.customer.name}님 결제 금액: {paid_amount:,}원")
+    
+print(vip_customer.summary())
+print(basic_customer.summary())
